@@ -16,7 +16,7 @@ function setup() {
 function draw() {
   background(220);
   let w = width/bars.length;
-  print(w);
+  // print(w);
 
   for(let i = 0; i < bars.length; i++){
     let rgb = bars[i].values;
