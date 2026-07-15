@@ -43,17 +43,10 @@ ws.onmessage = (event) => {
 
     // Handle incoming sensor data
     if (data.type === 'data' && data.values && data.device_id === DEVICE_ID) {
-      // console.log('Received 8-pixel data:', data.values);
-      // data.values is an object with rgb keys)
-      // data.max is 65535
       colorReading = data.values;
-
-      
-      bars.unshift({ values: data.values });
-
-      if(bars.length > max){
-        bars.pop();
-      }
+      allReadings.unshift({ values: data.values, timestamp: new Date().toISOString() });
+      if (allReadings.length > MAX) allReadings.pop();
+      bars = getVisibleBars(allReadings, visibleDays);
     }
   } catch (error) {
     console.error('Error parsing message:', error);
